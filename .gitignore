@@ -11,6 +11,9 @@ __pycache__/
 venv/
 env/
 
+# AI training data (large, use separate download)
+ai-model/dataset/
+
 # Build and cache
 dist/
 build/
