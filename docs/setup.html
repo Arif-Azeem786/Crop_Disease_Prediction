@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Guide — CropGuard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <style>
+    :root { --color-bg:#f8fafc; --color-surface:#fff; --color-text:#1e293b; --color-muted:#64748b; --color-accent:#16a34a; --color-accent-light:#dcfce7; --font-mono:'Consolas',monospace; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: system-ui, sans-serif; font-size:16px; line-height:1.7; color:var(--color-text); background:var(--color-bg); max-width:900px; margin:0 auto; padding:2rem; }
+    @media print { body { background:white; } .no-print { display:none!important; } }
+    h1 { font-size:1.75rem; margin-bottom:0.5rem; border-bottom:3px solid var(--color-accent); padding-bottom:0.5rem; }
+    h2 { font-size:1.35rem; margin:2rem 0 1rem; color:var(--color-accent); }
+    h3 { font-size:1.1rem; margin:1.5rem 0 0.5rem; }
+    p { margin-bottom:1rem; color:var(--color-muted); }
+    ul { margin:0 0 1rem 1.5rem; }
+    li { margin-bottom:0.4rem; }
+    a { color:var(--color-accent); }
+    code { font-family:var(--font-mono); background:var(--color-accent-light); padding:0.15em 0.4em; border-radius:4px; font-size:0.9em; }
+    pre { background:#1e293b; color:#e2e8f0; padding:1rem; border-radius:8px; overflow-x:auto; margin:1rem 0; font-size:0.9rem; }
+    pre code { background:none; padding:0; }
+    .nav { background:var(--color-surface); padding:1rem; border-radius:8px; margin-bottom:2rem; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+    .nav a { margin-right:1rem; }
+    .note { background:#fef3c7; border-left:4px solid #f59e0b; padding:1rem; margin:1rem 0; border-radius:0 8px 8px 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav no-print">
+    <a href="index.html">← Back to Index</a> | <a href="api.html">API Reference</a>
+  </nav>
+  <h1>Setup Guide</h1>
+  <p>Step-by-step instructions to run CropGuard locally.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>Node.js 18+</li>
+    <li>Python 3.10+</li>
+    <li>MongoDB (local or Atlas)</li>
+    <li>npm</li>
+  </ul>
+
+  <h2>1. AI Model Service</h2>
+  <pre><code>cd ai-model
+python -m venv venv
+venv\Scripts\activate   # Windows
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000</code></pre>
+  <p class="note">Use <code>numpy&lt;2</code> if TensorFlow fails with NumPy 2.x.</p>
+
+  <h2>2. Train Model (Optional, for real predictions)</h2>
+  <p>Add images to <code>ai-model/dataset/</code> per class. Then:</p>
+  <pre><code>cd ai-model
+python train_model.py</code></pre>
+
+  <h2>3. Backend</h2>
+  <pre><code>cd backend
+npm install
+# Create .env with MONGODB_URI, AI_SERVICE_URL, OPENAI_API_KEY
+npm start</code></pre>
+
+  <h2>4. Frontend</h2>
+  <pre><code>cd frontend
+npm install
+npm start</code></pre>
+
+  <h2>5. Access</h2>
+  <p>Open <a href="http://localhost:3000">http://localhost:3000</a></p>
+</body>
+</html>

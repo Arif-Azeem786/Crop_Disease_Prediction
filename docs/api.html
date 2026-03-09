@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference — CropGuard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <style>
+    :root { --color-bg:#f8fafc; --color-text:#1e293b; --color-muted:#64748b; --color-accent:#16a34a; --color-accent-light:#dcfce7; --font-mono:'Consolas',monospace; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: system-ui, sans-serif; font-size:16px; line-height:1.7; color:var(--color-text); background:var(--color-bg); max-width:900px; margin:0 auto; padding:2rem; }
+    @media print { body { background:white; } .no-print { display:none!important; } }
+    h1 { font-size:1.75rem; border-bottom:3px solid var(--color-accent); padding-bottom:0.5rem; margin-bottom:0.5rem; }
+    h2 { font-size:1.35rem; margin:2rem 0 1rem; color:var(--color-accent); }
+    table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.95rem; }
+    th, td { padding:0.6rem 0.8rem; text-align:left; border:1px solid #e2e8f0; }
+    th { background:var(--color-accent-light); font-weight:600; }
+    .nav { margin-bottom:2rem; }
+    .nav a { color:var(--color-accent); margin-right:1rem; }
+    code { font-family:var(--font-mono); background:var(--color-accent-light); padding:0.1em 0.3em; border-radius:4px; font-size:0.9em; }
+  </style>
+</head>
+<body>
+  <nav class="nav no-print">
+    <a href="index.html">← Back to Index</a> | <a href="setup.html">Setup Guide</a>
+  </nav>
+  <h1>API Reference</h1>
+  <p>All endpoints use base URL: <code>http://localhost:5000/api</code></p>
+
+  <h2>Prediction & Chat</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>POST</td><td>/upload</td><td>Upload image (multipart/form-data), get disease prediction</td></tr>
+    <tr><td>POST</td><td>/chat</td><td>Send message, get chatbot response. Body: <code>{ message, sessionId, lang }</code></td></tr>
+    <tr><td>POST</td><td>/translate</td><td>Translate text. Body: <code>{ text, targetLang }</code> (hi, te)</td></tr>
+  </table>
+
+  <h2>Auth — Admin</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>POST</td><td>/admin/login</td><td>Body: <code>{ username, password }</code>. Returns token.</td></tr>
+    <tr><td>GET</td><td>/admin/verify</td><td>Header: <code>Authorization: Bearer &lt;token&gt;</code></td></tr>
+  </table>
+
+  <h2>Auth — Users (Farmers)</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>POST</td><td>/users/register</td><td>Body: <code>{ name, email, password, phone?, location? }</code></td></tr>
+    <tr><td>POST</td><td>/users/login</td><td>Body: <code>{ email, password }</code></td></tr>
+    <tr><td>GET</td><td>/users/profile</td><td>Header: <code>Authorization: Bearer &lt;token&gt;</code></td></tr>
+    <tr><td>PUT</td><td>/users/profile</td><td>Body: <code>{ name?, phone?, location? }</code></td></tr>
+  </table>
+
+  <h2>Stats & Health</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>GET</td><td>/stats/public</td><td>Public stats (totalPredictions, todayCount, totalUsers)</td></tr>
+    <tr><td>GET</td><td>/dashboard</td><td>Admin stats (requires admin token)</td></tr>
+    <tr><td>GET</td><td>/health</td><td>Health check</td></tr>
+  </table>
+
+  <h2>AI Service (Python — port 8000)</h2>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>POST</td><td>/predict</td><td>Image file, returns disease prediction</td></tr>
+    <tr><td>GET</td><td>/health</td><td>Health and model status</td></tr>
+  </table>
+</body>
+</html>

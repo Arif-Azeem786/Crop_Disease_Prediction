@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CropGuard — Project Documentation</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <style>
+    :root {
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-text: #1e293b;
+      --color-text-muted: #64748b;
+      --color-accent: #16a34a;
+      --color-accent-light: #dcfce7;
+      --color-border: #e2e8f0;
+      --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Consolas', 'Monaco', monospace;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--color-text);
+      background: var(--color-bg);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    @media print {
+      body { background: white; max-width: 100%; }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+      nav { position: static; }
+    }
+    h1, h2, h3 { font-weight: 700; color: var(--color-text); }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; border-bottom: 3px solid var(--color-accent); padding-bottom: 0.5rem; }
+    h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--color-accent); }
+    h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; }
+    p { margin-bottom: 1rem; color: var(--color-text-muted); }
+    ul, ol { margin: 1rem 0 1rem 1.5rem; }
+    li { margin-bottom: 0.5rem; }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: var(--font-mono); background: var(--color-accent-light); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; font-size: 0.9rem; }
+    pre code { background: none; padding: 0; color: inherit; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; box-shadow: var(--shadow); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+    th { background: var(--color-accent-light); font-weight: 600; }
+    tr:hover { background: #f8fafc; }
+    .header { margin-bottom: 2rem; padding: 2rem; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; border-radius: 12px; }
+    .header h1 { border: none; color: white; }
+    .header p { color: rgba(255,255,255,0.9); margin-bottom: 0; }
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--color-surface);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2rem;
+      z-index: 10;
+    }
+    nav ul { list-style: none; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    nav li { margin: 0; }
+    nav a { display: block; padding: 0.5rem 1rem; background: var(--color-accent-light); border-radius: 6px; font-size: 0.9rem; font-weight: 500; }
+    nav a:hover { background: var(--color-accent); color: white; }
+    .section { margin-bottom: 3rem; }
+    .badge { display: inline-block; padding: 0.2em 0.6em; background: var(--color-accent-light); color: var(--color-accent); border-radius: 6px; font-size: 0.85rem; font-weight: 500; }
+    .note { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
+    .download-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--color-accent); color: white; border-radius: 8px; font-weight: 600; margin-top: 1rem; }
+    .download-btn:hover { background: #15803d; }
+    kbd { padding: 0.15em 0.5em; background: #e2e8f0; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9em; }
+    .toc-list { list-style: none; margin: 0; }
+    .toc-list li { margin: 0.25rem 0; padding-left: 0; }
+    .toc-list a { display: block; padding: 0.5rem; border-radius: 6px; }
+    .toc-list a:hover { background: var(--color-accent-light); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌱 CropGuard</h1>
+    <p>AI-Powered Plant Disease Detection — Project Documentation</p>
+    <span class="badge" style="background:rgba(255,255,255,0.2);color:white;margin-top:0.5rem;">Version 1.0</span>
+  </div>
+
+  <nav class="no-print">
+    <strong>Quick Navigation</strong>
+    <ul>
+      <li><a href="#index">Index</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#setup">Setup</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#api">API</a></li>
+      <li><a href="#structure">Structure</a></li>
+      <li><a href="#download">Download</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="index" class="section">
+      <h2>Index (Table of Contents)</h2>
+      <ol class="toc-list" style="list-style:decimal;margin-left:1.5rem;">
+        <li><a href="#overview">Overview & Tech Stack</a></li>
+        <li><a href="#setup">Setup Instructions</a>
+          <ul style="margin-left:1rem;margin-top:0.5rem;">
+            <li>AI Model Service (Python)</li>
+            <li>Backend (Node.js)</li>
+            <li>Frontend (React)</li>
+            <li>MongoDB</li>
+          </ul>
+        </li>
+        <li><a href="#features">Features & Pages</a></li>
+        <li><a href="#api">API Endpoints</a></li>
+        <li><a href="#structure">Project Structure</a></li>
+        <li><a href="#env">Environment Variables</a></li>
+        <li><a href="#diseases">Supported Diseases</a></li>
+        <li><a href="#download">Download & Print</a></li>
+      </ol>
+      <p style="margin-top:1rem;"><strong>Multi-page docs:</strong> <a href="setup.html">Setup Guide</a> · <a href="api.html">API Reference</a></p>
+    </section>
+
+    <section id="overview" class="section">
+      <h2>1. Overview & Tech Stack</h2>
+      <p>CropGuard is a full-stack web application for detecting Banana and Wheat leaf diseases and assisting farmers with treatment advice in multiple languages.</p>
+      <table>
+        <thead><tr><th>Layer</th><th>Technology</th></tr></thead>
+        <tbody>
+          <tr><td>Frontend</td><td>React, Tailwind CSS, Chart.js, React Router</td></tr>
+          <tr><td>Backend</td><td>Node.js, Express</td></tr>
+          <tr><td>Database</td><td>MongoDB</td></tr>
+          <tr><td>AI Service</td><td>Python, FastAPI, TensorFlow (CNN)</td></tr>
+          <tr><td>Chatbot</td><td>OpenAI API</td></tr>
+          <tr><td>Voice</td><td>Browser SpeechSynthesis API</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="setup" class="section">
+      <h2>2. Setup Instructions</h2>
+
+      <h3>2.1 AI Model Service (Python)</h3>
+      <pre><code>cd ai-model
+python -m venv venv
+venv\Scripts\activate   # Windows
+# source venv/bin/activate  # Linux/Mac
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000</code></pre>
+      <p class="note"><strong>Note:</strong> Without a trained model, the service runs in <strong>DEMO mode</strong>. For real predictions, train the model with <code>python train_model.py</code> after adding images to <code>dataset/</code>.</p>
+
+      <h3>2.2 Backend (Node.js)</h3>
+      <pre><code>cd backend
+npm install
+# Create .env with MONGODB_URI, AI_SERVICE_URL, OPENAI_API_KEY
+npm start</code></pre>
+
+      <h3>2.3 Frontend (React)</h3>
+      <pre><code>cd frontend
+npm install
+# Create .env with REACT_APP_API_URL=http://localhost:5000/api
+npm start</code></pre>
+      <p>Frontend runs at <code>http://localhost:3000</code>. Backend at <code>http://localhost:5000</code>. AI service at <code>http://localhost:8000</code>.</p>
+
+      <h3>2.4 MongoDB</h3>
+      <p>Ensure MongoDB is running (local or Atlas). Set <code>MONGODB_URI</code> in backend <code>.env</code>.</p>
+    </section>
+
+    <section id="features" class="section page-break">
+      <h2>3. Features & Pages</h2>
+      <table>
+        <thead><tr><th>Page</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Home</td><td>Hero, How It Works, Supported Crops, Live Stats, Seasonal Tips</td></tr>
+          <tr><td>Detect Disease</td><td>Upload leaf image (drag & drop), AI analysis</td></tr>
+          <tr><td>Results</td><td>Disease name, confidence, causes, symptoms, treatment, chemical & natural fertilizers, Voice in EN/HI/TE</td></tr>
+          <tr><td>Chatbot</td><td>AI farming assistant (English, Hindi, Telugu)</td></tr>
+          <tr><td>Disease Library</td><td>Banana & Wheat disease database with symptoms, treatment, fertilizers</td></tr>
+          <tr><td>FAQ</td><td>Common farmer questions</td></tr>
+          <tr><td>Create Account</td><td>Farmer registration</td></tr>
+          <tr><td>Login</td><td>Farmer login & Admin login</td></tr>
+          <tr><td>Profile</td><td>User profile (requires farmer login)</td></tr>
+          <tr><td>Dashboard</td><td>Analytics, charts, model comparison (admin only)</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Other:</strong> Night mode toggle, Voice Assist (3 languages), Share (WhatsApp, Copy), Print</p>
+    </section>
+
+    <section id="api" class="section">
+      <h2>4. API Endpoints</h2>
+      <h3>Backend (Node.js — /api)</h3>
+      <table>
+        <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>POST</td><td>/api/upload</td><td>Upload image, get prediction</td></tr>
+          <tr><td>POST</td><td>/api/chat</td><td>Chatbot message</td></tr>
+          <tr><td>POST</td><td>/api/translate</td><td>Translate text (EN/HI/TE)</td></tr>
+          <tr><td>GET</td><td>/api/stats/public</td><td>Public stats (predictions, users)</td></tr>
+          <tr><td>GET</td><td>/api/dashboard</td><td>Admin dashboard stats (auth required)</td></tr>
+          <tr><td>POST</td><td>/api/admin/login</td><td>Admin login</td></tr>
+          <tr><td>GET</td><td>/api/admin/verify</td><td>Verify admin token</td></tr>
+          <tr><td>POST</td><td>/api/users/register</td><td>Farmer registration</td></tr>
+          <tr><td>POST</td><td>/api/users/login</td><td>Farmer login</td></tr>
+          <tr><td>GET</td><td>/api/users/profile</td><td>Get profile (auth required)</td></tr>
+          <tr><td>PUT</td><td>/api/users/profile</td><td>Update profile (auth required)</td></tr>
+          <tr><td>GET</td><td>/api/health</td><td>Health check</td></tr>
+        </tbody>
+      </table>
+      <h3>AI Service (Python — port 8000)</h3>
+      <table>
+        <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>POST</td><td>/predict</td><td>Predict disease from image</td></tr>
+          <tr><td>GET</td><td>/health</td><td>Health and model status</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="structure" class="section">
+      <h2>5. Project Structure</h2>
+      <pre><code>Banana_Wheat_prediction/
+├── ai-model/           # Python FastAPI AI service
+│   ├── main.py
+│   ├── disease_info.py
+│   ├── train_model.py
+│   ├── class_mapping.json
+│   ├── requirements.txt
+│   └── dataset/        # Leaf images for training
+├── backend/            # Node.js Express API
+│   ├── server.js
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── uploads/
+├── frontend/           # React app
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── config/
+│   │   └── images/
+│   └── package.json
+├── docs/
+│   └── index.html      # This documentation
+└── README.md</code></pre>
+    </section>
+
+    <section id="env" class="section">
+      <h2>6. Environment Variables</h2>
+      <h3>Backend (.env)</h3>
+      <table>
+        <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>PORT</td><td>Server port (default: 5000)</td></tr>
+          <tr><td>MONGODB_URI</td><td>MongoDB connection string</td></tr>
+          <tr><td>AI_SERVICE_URL</td><td>Python AI service (e.g. http://127.0.0.1:8000)</td></tr>
+          <tr><td>OPENAI_API_KEY</td><td>OpenAI API key for chatbot</td></tr>
+          <tr><td>JWT_SECRET</td><td>JWT secret (optional, has default)</td></tr>
+        </tbody>
+      </table>
+      <h3>Frontend (.env)</h3>
+      <table>
+        <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>REACT_APP_API_URL</td><td>Backend API URL (e.g. http://localhost:5000/api)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="diseases" class="section">
+      <h2>7. Supported Diseases</h2>
+      <p><strong>Banana:</strong> Black Sigatoka, Cordana, Pestalotiopsis, Sigatoka, Panama Disease, Bacterial Wilt, Healthy</p>
+      <p><strong>Wheat:</strong> Leaf Rust, Stripe Rust, Powdery Mildew, Septoria, Leaf Blight, Healthy</p>
+    </section>
+
+    <section id="download" class="section">
+      <h2>8. Download & Print</h2>
+      <p>This documentation is a single HTML file. You can:</p>
+      <ul>
+        <li><strong>Save as HTML:</strong> Right-click → Save As → save <code>index.html</code></li>
+        <li><strong>Print / Save as PDF:</strong> Press <kbd>Ctrl+P</kbd> (Cmd+P on Mac) → Choose "Save as PDF" or print</li>
+        <li><strong>Open offline:</strong> Double-click the HTML file to open in any browser</li>
+      </ul>
+      <p class="note"><strong>Tip:</strong> For PDF, use "Save as PDF" in the print dialog for best formatting.</p>
+    </section>
+  </main>
+
+  <footer style="margin-top:4rem;padding-top:2rem;border-top:1px solid var(--color-border);color:var(--color-text-muted);font-size:0.9rem;">
+    <p>© 2026 CropGuard — AI-Powered Plant Disease Detection for Farmers</p>
+  </footer>
+</body>
+</html>

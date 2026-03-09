@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-medium bg-leaf-600 hover:bg-leaf-700 text-white transition-all shadow-lg hover:shadow-leaf-600/30;
+  }
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-medium bg-white dark:bg-slate-800 border-2 border-leaf-600 text-leaf-600 dark:text-leaf-400 dark:border-leaf-500 hover:bg-leaf-50 dark:hover:bg-slate-700 transition-all;
+  }
+  .card {
+    @apply bg-white/95 dark:bg-slate-800/95 backdrop-blur rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden;
+  }
+  .section-bg {
+    background-image: url('./images/farm-landscape-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .section-overlay {
+    @apply bg-white/90 backdrop-blur-sm;
+  }
+}
